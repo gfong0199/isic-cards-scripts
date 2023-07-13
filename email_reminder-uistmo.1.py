@@ -306,55 +306,39 @@ def send_email(email,fname,card):
             dict_object.writerow(dict)
       #%%
 #%%
-send_email("gafafong99@gmail.com","GUILLERMO, FONG","S 507 000 038 223 J")
+#send_email("gafafong99@gmail.com","GUILLERMO, FONG","S 507 000 038 223 J")
 
 #%%
-print(lista_util)
 #%%
-send_email("vielka.gomez@otec.com.pa","Gomez, Vielka","445465346546456")
+#send_email("vielka.gomez@otec.com.pa","Gomez, Vielka","445465346546456")
 #%%
+def main():
+    #%%
+    df_rt = pd.read_csv('data.csv', encoding='utf-8')
+    df_rt['validTo'] = pd.to_datetime(df_rt['validTo'])
+    df_rt['validTo']=df_rt['validTo'].dt.strftime('%Y-%m-%d')
+    df_rt['validFrom'] = pd.to_datetime(df_rt['validFrom'])
+    df_rt['validFrom']=df_rt['validFrom'].dt.strftime('%Y-%m-%d')
+    df_rt['dateOfBirth'] = pd.to_datetime(df_rt['dateOfBirth'])
+    df_rt['dateOfBirth']= df_rt['dateOfBirth'].dt.strftime('%Y-%m-%d')
+    # df_rt['dateOfBirth'] = pd.to_datetime(df_rt['dateOfBirth'])
+    df_rt['gender']=df_rt['gender'].fillna('')
+    df_rt['issueType']=df_rt['issueType'].fillna('')
+    df_rt['issuedOn']=df_rt['issuedOn'].fillna('')
+    old_df =df_rt
+    nan_in_col  = df_rt[df_rt['dateOfBirth'].isna()]
+    df_rt  = df_rt[df_rt['dateOfBirth'].notnull()]
+    print('empezo', pd.Timestamp.today())
+    print('data cargada')
+
+    df_rt.apply(lambda row: send_email(row['email'],row['printedName'],row['cardNumber']), axis=1)
+
+    
+
+# Call the main function
+if __name__ == "__main__":
+    main()
+
+
 
 #%%
-df_rt = pd.read_csv('data.csv', encoding='utf-8')
-df_rt['validTo'] = pd.to_datetime(df_rt['validTo'])
-df_rt['validTo']=df_rt['validTo'].dt.strftime('%Y-%m-%d')
-df_rt['validFrom'] = pd.to_datetime(df_rt['validFrom'])
-df_rt['validFrom']=df_rt['validFrom'].dt.strftime('%Y-%m-%d')
-df_rt['dateOfBirth'] = pd.to_datetime(df_rt['dateOfBirth'])
-df_rt['dateOfBirth']= df_rt['dateOfBirth'].dt.strftime('%Y-%m-%d')
-# df_rt['dateOfBirth'] = pd.to_datetime(df_rt['dateOfBirth'])
-df_rt['gender']=df_rt['gender'].fillna('')
-df_rt['issueType']=df_rt['issueType'].fillna('')
-df_rt['issuedOn']=df_rt['issuedOn'].fillna('')
-old_df =df_rt
-nan_in_col  = df_rt[df_rt['dateOfBirth'].isna()]
-df_rt  = df_rt[df_rt['dateOfBirth'].notnull()]
-
-#%%
-
-df_rt.apply(lambda row: send_email(row['email'],row['printedName'],row['cardNumber']), axis=1)
-
-#%%
-print('empezo', pd.Timestamp.today())
-
-df_rt.apply(lambda row: send_email(row['email'],row['printedName'],row['cardNumber']), axis=1)
-
-#%%
-
-# validacion
-
-df_rt2 = pd.read_csv('datamasterestudianteistmo.csv', encoding='latin-1')
-df_rt3 = pd.read_csv('emails_sent_istmo.csv', encoding='latin-1')
-df_rt3.columns = ['email', 'status']
-#%%
-df_rt4 =df_rt3.dropna()
-#%%
-df_rt4= df_rt4['email'].unique().tolist()
-#%%
-merge_df= pd.merge(df_rt2, df_rt3,on=['email'],how="outer")
-merge_df=merge_df.drop(['No.'], axis=1)
-
-merge_df.to_csv('emails_status_istmo.csv')
-
-#%%
-print(df_rt3['email'].unique())
