@@ -95,7 +95,7 @@ def send_email(email,fname,card):
                 <p class=MsoNormal align=center style='text-align:center'><span lang=ES-PA style='font-size:18.0pt;font-family:"Agency FB",sans-serif'><img width=auto
                     height=78 id="Picture 4"
                     src="cid:image1"
-                    alt="Otec Logo"></span><img width=87 height=87 id="Picture 3" src="cid:image2" alt="Isic Logo"></p>
+                    alt="Otec Logo"></span><img width=60 height=60 id="Picture 3" src="cid:image2" alt="Isic Logo"></p>
 
                 <p class=MsoNormal align=center style='text-align:center'><span lang=ES-PA style='font-size:18.0pt;font-family:"Agency FB",sans-serif'><img width=355
                     height=67 id="Picture 6"
@@ -172,7 +172,10 @@ def send_email(email,fname,card):
 
                 <p class=MsoNormal align=center style='text-align:center'><b><span lang=ES-PA
                     style='font-size:18.0pt;font-family:"Agency FB",sans-serif;color:red'>activar
-                    tu Carnet estudiantil 2022</span></b></p>
+                    tu Carnet estudiantil 2023</span></b></p>
+                    <br>
+                <p class=MsoNormal align=center style='text-align:center'><b><span lang=ES-PA
+                    style='font-size:18.0pt;font-family:"Agency FB",sans-serif;color:red'>Asistencia por Whatsapp: 6252-9302</span></b></p>
 
                 <p class=MsoNormal><span lang=ES-PA>&nbsp;</span></p>
 
@@ -334,7 +337,7 @@ def main():
     df_rt.apply(lambda row: send_email(row['email'],row['printedName'],row['cardNumber']), axis=1)
 
     
-
+#%%
 # Call the main function
 if __name__ == "__main__":
     main()
