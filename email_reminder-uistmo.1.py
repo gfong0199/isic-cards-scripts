@@ -215,7 +215,7 @@ def send_email(email,fname,card):
     # Generate today's date to be included in the email Subject
 
     # This example assumes the image is in the current directory
-    fp = open('Picture1.jpg', 'rb')
+    fp = open('PIcture1.JPG', 'rb')
     msgImage = MIMEImage(fp.read())
     fp.close()
     # Define the image's ID as referenced above
